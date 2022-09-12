@@ -4,6 +4,21 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Freelancer - Start Bootstrap Theme</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="/resources/assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="/./resources/css/styles.css" rel="stylesheet" />
+        <link href="/./resources/css/board.css" rel="stylesheet" />
+		
 		<title>게시글 목록</title>
 		<%@ include file="../include/header.jsp" %>
 		<script>
@@ -19,34 +34,52 @@
 	</head>
 	<body>
 		<%@ include file="../include/nav.jsp" %>
-		<h2>게시글 목록</h2>
-		
-		<form name="search_form" method="post" action="${path}/board/list.do">
-			<select name="searchOption">
-				<option value="all" <c:out value="${map.searchOption == 'all' ? 'selected' : ''}" /> >제목+이름+내용</option>
-				<option value="writer" <c:out value="${map.searchOption == 'writer' ? 'selected' : ''}" /> >이름</option>
-				<option value="content" <c:out value="${map.searchOption == 'content' ? 'selected' : ''}" /> >내용</option>
-				<option value="title" <c:out value="${map.searchOption == 'title' ? 'selected' : ''}" /> >제목</option>
-			</select>
-			<input name="keyword" value="${map.keyword}" />
-			<input type="submit" value="조회" />
-			<c:if test="${sessionScope.userId != null}">
-				<button type="button" id="btnWrite">글쓰기</button>
-			</c:if>
-		</form>
-		
-		<!-- 레코드 개수 출력 -->
-		${map.count}개의 게시물이 있습니다
-		
-		<table border="1" style="width: 600px">
-			<tr>
-				<th>#</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
-				<th>조회수</th>
-			</tr>
-			<c:forEach var="row" items="${map.list}">
+		<section class="notice">
+  <div class="page-title">
+        <div class="container">
+            <h3>공지사항</h3>
+        </div>
+    </div>
+    
+    <!-- board seach area -->
+    <div id="board-search">
+        <div class="container">
+            <div class="search-window">
+                <form action="">
+                    <div class="search-wrap">
+                        <label for="search" class="blind">공지사항 내용 검색</label>
+                        
+                       
+                        
+                        <input id="search" type="search" name="keyword" placeholder="검색어를 입력해주세요." value="${map.keyword}">
+                        
+                        <button type="submit" class="btn btn-dark">검색</button>
+                        
+                        
+                   
+                    </div>
+                    
+                </form>
+            </div>
+            
+        </div>
+    </div>
+    
+    <!-- board list area -->
+    <div id="board-list">
+        <div class="container">
+            <table class="board-table">
+                <thead>
+                <tr>
+                    <th scope="col" class="th-num">번호</th>
+                    <th scope="col" class="th-title">제목</th>
+                    <th scope="col" class="th-writer">작성자</th>
+                    <th scope="col" class="th-date">등록일</th>
+                    <th scope="col" class="th-views">조회수</th>
+                </tr>
+                </thead>
+                <tbody>
+               <c:forEach var="row" items="${map.list}">
 			<tr>
 				<td>${row.getBoardId()}</td>
 				<td>
@@ -91,6 +124,22 @@
 					</c:if>
 				</td>
 			</tr>
-		</table>
+			
+			
+                </tbody>
+                
+                
+            </table>
+            <c:if test="${sessionScope.userId != null}">
+				<button type="button" id="btnWrite"  class="btn btn-dark" style="float: right;" >글쓰기</button>
+			</c:if>
+            
+            
+            
+        </div>
+    </div>
+
+
+		</section>
 	</body>
 </html>

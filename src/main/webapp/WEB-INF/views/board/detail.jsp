@@ -4,8 +4,23 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Freelancer - Start Bootstrap Theme</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="/resources/assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="/./resources/css/styles.css" rel="stylesheet" />
 		<title>${dto.getTitle()}</title>
 		<%@ include file="../include/header.jsp" %>
+		<link href="/./resources/css/write.css" rel="stylesheet" />
 		<script>
 			$(document).ready(function() {
 				$("#btnUpdate").click(function() {
@@ -24,30 +39,51 @@
 				})
 			})
 		</script>
+		
 	</head>
 	<body>
-		<%@ include file="../include/nav.jsp" %>
-		<h2>${dto.getTitle()}</h2>
-		<div>
-			작성일 :
-			<fmt:formatDate value="${dto.getRegDate()}" pattern="yyyy-MM-dd HH:mm:ss" />
-		</div>
-		<div>
-			조회수 :
-			${dto.getViews()}
-		</div>
-		<div>
-			작성자 :
-			${dto.getWriter()}
-		</div>
-		<div>
-			내용 :
-			${dto.getContent()}
-		</div>
-		<c:if test="${sessionScope.userId == dto.getWriter()}">
-			<button id="btnUpdate">수정</button>
-			<button id="btnDelete">삭제</button>
-		</c:if>
-		<button id="btnList">목록</button>
-	</body>
+	<%@ include file="../include/nav.jsp" %>
+
+<div class="board_wrap">
+        <div class="board_title">
+            <strong>공지사항</strong>
+            <p>공지사항을 빠르고 정확하게 안내해드립니다.</p>
+        </div>
+        <div class="board_view_wrap">
+            <div class="board_view">
+                <div class="title">
+                    ${dto.getTitle()}
+                </div>
+                <div class="info">
+                    <dl>
+                        <dt>번호</dt>
+                        <dd>${dto.getBoardId()}</dd>
+                    </dl>
+                    <dl>
+                        <dt>작성자</dt>
+                        <dd>${dto.getWriter()}</dd>
+                    </dl>
+                    <dl>
+                        <dt>작성일</dt>
+                        <dd><fmt:formatDate value="${dto.getRegDate()}" pattern="yyyy-MM-dd HH:mm:ss" /></dd>
+                    </dl>
+                    <dl>
+                        <dt>조회</dt>
+                        <dd>${dto.getViews()}</dd>
+                    </dl>
+                </div>
+                <div class="cont">
+                    ${dto.getContent()}
+                </div>
+            </div>
+            <div class="bt_wrap">
+                <c:if test="${sessionScope.userId == dto.getWriter()}">
+        <button id="btnUpdate">수정</button>
+        <button id="btnDelete">삭제</button>
+    </c:if>
+    <button id="btnList">목록</button>
+            </div>
+        </div>
+    </div>
+    	</body>
 </html>

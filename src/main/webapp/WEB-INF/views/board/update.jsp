@@ -1,53 +1,101 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>게시글 업데이트</title>
-		<%@ include file="../include/header.jsp" %>
-		<%@ include file="../include/sessionCheck.jsp" %>
-		<script>
-			$(document).ready(function() {
-				$("#btnUpdate").click(function() {
-					const title = $("#title").val();
-					const content = $("#content").val();
-					
-					if(title === "") {
-						alert("제목을 입력하십시오.");
-						document.write_form.title.focus();
-						return;
-					}
-					if(content === "") {
-						alert("내용을 입력하십시오.");
-						document.write_form.content.focus();
-						return;
-					}
-					document.update_form.submit();
-				})
-			})
-		</script>
-	</head>
-	<body>
-		<%@ include file="../include/nav.jsp" %>
-		<h2>게시글 업데이트</h2>
-		<form name="update_form" method="post" action="${path}/board/update.do">
-			<input name="boardId" id="boardId" value="${dto.getBoardId()}" type="hidden" />
-			<div>
-				제목 :
-				<input name="title" id="title" size="100" value="${dto.getTitle()}" />
-			</div>
-			<div>
-				내용 :
-				<textarea name="content" id="content" rows="5" cols="100">${dto.getContent()}</textarea> 
-			</div>
-			<div>
-				작성자 : ${dto.getWriter()}
-			</div>
-			<div style="width: 650px; text-align: center;">
-				<button type="button" id="btnUpdate">확인</button>
-				<button type="reset">취소</button>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Freelancer - Start Bootstrap Theme</title>
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon"
+	href="/resources/assets/favicon.ico" />
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+	crossorigin="anonymous"></script>
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css" />
+<link
+	href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+	rel="stylesheet" type="text/css" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="/./resources/css/styles.css" rel="stylesheet" />
+<link href="/./resources/css/write.css" rel="stylesheet" />
+<title>게시글 업데이트</title>
+<%@ include file="../include/header.jsp"%>
+<%@ include file="../include/sessionCheck.jsp"%>
+<script>
+	$(document).ready(function() {
+		$("#btnUpdate").click(function() {
+			const title = $("#title").val();
+			const content = $("#content").val();
+
+			if (title === "") {
+				alert("제목을 입력하십시오.");
+				document.write_form.title.focus();
+				return;
+			}
+			if (content === "") {
+				alert("내용을 입력하십시오.");
+				document.write_form.content.focus();
+				return;
+			}
+			document.update_form.submit();
+		})
+	})
+</script>
+</head>
+<body>
+	<%@ include file="../include/nav.jsp"%>
+	<div class="board_wrap">
+		<div class="board_title">
+			<strong>공지사항</strong>
+			<p>공지사항을 빠르고 정확하게 안내해드립니다.</p>
+		</div>
+		<form name="update_form" method="post"
+			action="${path}/board/update.do">
+			<div class="board_write_wrap">
+				<div class="board_write">
+					<div class="title">
+						<dl>
+							<dt>제목</dt>
+							<dd>
+								<input type="text" name="title" id="title" placeholder="제목 입력"
+									value="${dto.getTitle()}">
+							</dd>
+						</dl>
+					</div>
+					<div class="info">
+						<dl>
+							<dt>글쓴이</dt>
+							<dd>
+								<input type="text" placeholder="글쓴이 입력"
+									value="${dto.getWriter()}">
+							</dd>
+						</dl>
+						<dl>
+							<dt>비밀번호</dt>
+							<dd>
+								<input type="password" placeholder="비밀번호 입력" value="1234">
+							</dd>
+						</dl>
+					</div>
+					<div class="cont">
+						<textarea name="content" id="content" placeholder="내용 입력">
+					${dto.getContent()}</textarea>
+					</div>
+				</div>
 			</div>
 		</form>
-	</body>
+		<div class="bt_wrap">
+			<button type="button" class="on" id="btnUpdate">수정</button>
+			<button type="reset">취소</button>
+		</div>
+	</div>
+
+
+</body>
 </html>
